@@ -16,7 +16,7 @@ train = optimizer.minimize(loss)
 
 # Training data
 x_train = [1, 2, 3, 4]
-y_train = [1, 2, 3, 4]
+y_train = [0, -1, -2, -3]
 # Training loop
 init = tf.global_variables_initializer()
 # Run the session and produce Tensorboard graph
