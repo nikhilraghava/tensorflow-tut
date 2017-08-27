@@ -5,8 +5,9 @@ m = tf.Variable([0.3], dtype=tf.float32)
 c = tf.Variable([-0.3], dtype=tf.float32)
 # Model input and output
 x = tf.placeholder(tf.float32)
-linear_model = tf.add(tf.multiply(m, x), c)
 y = tf.placeholder(tf.float32)
+# Model
+linear_model = tf.add(tf.multiply(m, x), c)
 
 # Loss
 # sum of the squares
