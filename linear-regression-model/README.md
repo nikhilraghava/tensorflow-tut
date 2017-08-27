@@ -10,7 +10,4 @@ import tensorflow as tf
 
 Our ultimate goal as stated earlier, is to derieve a best fit line that best describes the given data set. A line as we all know follows the standard equation as shown below.
 
-```math
-y = mx + c
-```
-
+![equation](http://latex.codecogs.com/gif.latex?y=mx+c)
