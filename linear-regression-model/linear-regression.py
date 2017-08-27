@@ -1,25 +1,23 @@
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import numpy as np
 
 # Model parameters
-m = tf.Variable([0.3], dtype=tf.float32, name='m')
-c = tf.Variable([-0.3], dtype=tf.float32, name='c')
+m = tf.Variable([0.3], dtype=tf.float32)
+c = tf.Variable([-0.3], dtype=tf.float32)
 # Model input and output
-x = tf.placeholder(tf.float32, name='x')
+x = tf.placeholder(tf.float32)
 linear_model = tf.add(tf.multiply(m, x), c)
-y = tf.placeholder(tf.float32, name='y')
+y = tf.placeholder(tf.float32)
 
 # Loss
 # sum of the squares
 loss = tf.reduce_sum(tf.square(tf.subtract(linear_model, y)))
 # Optimizer
-optimizer = tf.train.GradientDescentOptimizer(0.01, name='train_min')
+optimizer = tf.train.GradientDescentOptimizer(0.01)
 train = optimizer.minimize(loss)
 
 # Training data
 x_train = [1, 2, 3, 4]
-y_train = [0, -2, -1, 10]
+y_train = [0, -1, -2, -3]
 # Training loop
 init = tf.global_variables_initializer()
 # Reset values
