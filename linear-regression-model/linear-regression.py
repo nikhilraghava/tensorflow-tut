@@ -1,4 +1,6 @@
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Model parameters
 m = tf.Variable([0.3], dtype=tf.float32, name='m')
@@ -16,7 +18,7 @@ train = optimizer.minimize(loss)
 
 # Training data
 x_train = [1, 2, 3, 4]
-y_train = [0, -1, -2, -3]
+y_train = [0, -2, -1, 10]
 # Training loop
 init = tf.global_variables_initializer()
 # Run the session and produce Tensorboard graph
@@ -34,3 +36,12 @@ with tf.Session() as sess:
     print("m: %s c: %s loss: %s" % (curr_m, curr_c, curr_loss))
 # Close writer
 writer.close()
+
+# Plot
+X = np.array(range(0,7))  
+Y = eval('curr_m*X + curr_c')
+plt.scatter(x_train, y_train, color='red')
+plt.plot(X, Y)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
