@@ -91,5 +91,5 @@ y = tf.nn.softmax(tf.add(tf.matmul(x, W), b))
 The code above is just following the equation of our model that we defined earlier. I prefer to use `tf.add` to add two `Tensors` together, adding them using the regular `+` would also work. Like our linear regression model we also need to define a loss/cost function and for this model we will be using a very common loss function called cross-entropy. Cross-entropy is defined as:
 
 <div align="center">
-<br><img src="https://cloudup.com/cV6aLMuP9Id" width="242" height="51"><br><br>
+<br><img src="https://cldup.com/2A5LB8bwxV.png" width="242" height="51"><br><br>
 </div>
