@@ -7,29 +7,29 @@ The MNIST dataset is hosted on [Yann LeCun's website](http://yann.lecun.com/exdb
 As mentioned earlier, we want our model to give us probablities instead of definitive predictions so we use softmax regression. Softmax gives us a list of probability values between `0` and `1` that adds up to `1`. Our softmax regression model has two steps: first we add up the evidence of our input being in certain classes, and then we convert that evidence into probabilities. To tally up the evidence that a given image is in a particular class, we do a weighted sum of the pixel intensities. We also add some extra evidence called a bias to the weighted sum of pixel intensities. Biases basically make certain evidences independent of the input, so even if the weighted sum is 0, you still have some evidence that the image belongs/does not belong to a certain class. The result is that the evidence for a class *i* given an input *x* is:
 
 <div align="center">
-<img src="https://cldup.com/ttvcgjROql.png" width="290" height="56.5"><br><br>
+<br><br><img src="https://cldup.com/ttvcgjROql.png" width="290" height="56.5"><br><br>
 </div>
 
 where `Wi` is the weights and `bi` is the bias for class `i`, and `j` is an index for summing over the pixels in our input image `x`. We then convert the evidence tallies into our predicted probabilities, `y` using the softmax function:
 
 <div align="center">
-<img src="https://cldup.com/KDaO5ykUi7.png" width="236.5" height="25"><br><br>
+<br><br><img src="https://cldup.com/KDaO5ykUi7.png" width="236.5" height="25"><br><br>
 </div>
 
 Here softmax is serving as an activation function, shaping the output of our linear function into the form we want - in this case, a probability distribution over 10 classes and it is defined as:
 
 <div align="center">
-<img src="https://cldup.com/y_VWl_UTcz.png" width="339.5" height="25"><br><br>
+<br><br><img src="https://cldup.com/y_VWl_UTcz.png" width="339.5" height="25"><br><br>
 </div>
 
 Expanding the equation, we get:
 
 <div align="center">
-<img src="https://cldup.com/aMYqYFKHWD.png" width="278" height="63.5"><br><br>
+<br><br><img src="https://cldup.com/aMYqYFKHWD.png" width="278" height="63.5"><br><br>
 </div>
 
 Our softmax regression model can be pictured as looking something like the following, but with a lot more `x`s. 
 
 <div align="center">
-<img src="https://www.tensorflow.org/images/softmax-regression-scalargraph.png" width="280.7" height="116.1"><br>
+<br><img src="https://www.tensorflow.org/images/softmax-regression-scalargraph.png" width="581.4" height="232.2"><br>
 </div>
