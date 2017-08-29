@@ -7,7 +7,7 @@ The MNIST dataset is hosted on [Yann LeCun's website](http://yann.lecun.com/exdb
 As mentioned earlier, we want our model to give us probablities instead of definitive predictions so we use softmax regression. Softmax gives us a list of probability values between `0` and `1` that adds up to `1`. Our softmax regression model has two steps: first we add up the evidence of our input being in certain classes, and then we convert that evidence into probabilities. To tally up the evidence that a given image is in a particular class, we do a weighted sum of the pixel intensities. We also add some extra evidence called a bias to the weighted sum of pixel intensities. Biases basically make certain evidences independent of the input, so even if the weighted sum is 0, you still have some evidence that the image belongs/does not belong to a certain class. The result is that the evidence for a class *i* given an input *x* is:
 
 <div align="center">
-  <img src="https://cldup.com/ttvcgjROql.png"><br>
+  <img src="https://cldup.com/ttvcgjROql.png" style="width: 50%; height: 50 %"><br>
 </div>
 
 where `Wi` is the weights and `bi` is the bias for class `i`, and `j` is an index for summing over the pixels in our input image `x`. We then convert the evidence tallies into our predicted probabilities, `y` using the softmax function:
