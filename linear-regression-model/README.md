@@ -128,4 +128,4 @@ From the derivative of our loss function, we can tell if we need to increase or 
   <img src="https://cldup.com/kVeMFrBnl1.png" style="width: 30%; height: 30%"><br>
 </div>
 
-In the above formula, `alpha` is the learning rate, the argument of the `tf.train.GradientDescentOptimizer` class. This process of updating and calculating the loss happens till the derivative of the loss function is as close to `0` as possible. In our case, `m` and `c` are updated independently and simultaneously. This is how gradient descent works.
+In the above formula, `alpha` is the learning rate, the argument of the `tf.train.GradientDescentOptimizer` class. This process of updating and calculating the loss happens till the derivative of the loss function is as close to `0` as possible. In our model, `m` and `c` are updated independently and simultaneously. This is how gradient descent works.
