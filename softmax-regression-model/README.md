@@ -48,3 +48,48 @@ Vizualizing the above equation in terms of vectors, we get:
 
 Now that we have defined our entire model in mathematical terms, let's start coding.
 
+## Implementing the Softmax Regression Model
+
+First we need to import TensorFlow.
+
+```python
+import tensorflow as tf
+```
+
+Now we need to obtain the MNIST dataset. Thankfully, TensorFlow has an inbulit function which allows us to get the MNIST dataset, extract it and use it, they have even split the dataset for us so we don't have to do it ourselves.
+
+```python
+from tensorflow.examples.tutorials.mnist import input_data
+
+# Download and extract the MNIST data set, convert to one-hot
+mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+``` 
+
+Here we download our data and convert the labels to a one-hot vector. Now let's reserve a place for our images.
+
+```python
+# MNIST images, each flattened into a 784-dimensional vector
+x = tf.placeholder(tf.float32, [None, 784])
+```
+
+`x` is a `placeholder`, a value that we'll input when we ask TensorFlow to run a computation. We want to be able to input any number of MNIST images, each flattened into a 784-dimensional vector. We represent this as a 2-D `Tensor` of floating-point numbers, with a shape `[None, 784]`. `x` is of shape `[None, 784]` and we will be feeding in images in batches so `None` here is able to support any batch size that we specify. Now we need our weights and biases. Like in the [linear regression model example](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model), weights and biases will be like our `m` and `c`, they will be variables whose values will be constantly updated as we train the model. Let's declare weights and biases in our code as variables.
+
+```python
+# Weights
+W = tf.Variable(tf.zeros([784, 10]))
+# Biases
+b = tf.Variable(tf.zeros([10]))
+```
+
+Our weights, `w` and biases, `b` will be `Tensors` full of `0`s with a shape of `[784, 10]` and `[10]` respectively. Notice that `W` has a shape of `[784, 10]` because we want to matrix multiply the 784-dimensional image vectors with it to produce 10-dimensional vectors of evidence for the different classes of labels. `b` has a shape of `[10]` so we can add it to the result of the matrix multiplication. Now let us define our model.
+
+```python
+# Model
+y = tf.nn.softmax(tf.add(tf.matmul(x, W), b))
+```
+
+The code above is just following the equation of our model that we defined earlier. I prefer to use `tf.add` to add two `Tensors` together, adding them using the regular `+` would also work. Like our linear regression model we also need to define a loss/cost function and for this model we will be using a very common loss function called cross-entropy. Cross-entropy is defined as:
+
+<div align="center">
+<br><img src="https://cloudup.com/cV6aLMuP9Id" width="242" height="51"><br><br>
+</div>
