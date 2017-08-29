@@ -125,7 +125,7 @@ First, we need to have a derivative of the loss function so that we can see if w
 From the derivative of our loss function, we can tell if we need to increase or decrease the value of `M`. If the derivative is positive, going uphill, increasing the value of `M` would increase the loss, so we need to decrease it. If the derivative is negative, going downhill, increasing the value of `M` would decrease the loss. Now that we know which way to go we need to make a move. To update the value of `M` we use the following formula.
 
 <div align="center">
-  <img src="https://cldup.com/kVeMFrBnl1.png"><br><br>
+  <img src="https://cldup.com/kVeMFrBnl1.png"><br><br>    
 </div>
 
 In the above formula, `alpha` is the learning rate, the argument of the `tf.train.GradientDescentOptimizer` class. This process of updating and calculating the loss happens till the derivative of the loss function is as close to `0` as possible. In our model, `m` and `c` are updated independently and simultaneously. This is how gradient descent works.
