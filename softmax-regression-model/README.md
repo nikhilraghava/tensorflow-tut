@@ -31,7 +31,7 @@ Expanding the equation, we get:
 Our softmax regression model can be pictured as looking something like the following, but with a lot more `x`s. 
 
 <div align="center">
-<br><img src="https://www.tensorflow.org/images/softmax-regression-scalargraph.png" width="581.4" height="232.2"><br>
+<br><img src="https://www.tensorflow.org/images/softmax-regression-scalargraph.png" width="581.4" height="232.2"><br><br>
 </div>
 
 In summary, our model can be written as:
@@ -43,5 +43,8 @@ In summary, our model can be written as:
 Vizualizing the above equation in terms of vectors, we get:
 
 <div align="center">
-<br><img src="https://www.tensorflow.org/images/softmax-regression-vectorequation.png" width="262.4" height="64"><br>
+<br><img src="https://www.tensorflow.org/images/softmax-regression-vectorequation.png" width="524.8" height="128"><br><br>
 </div>
+
+Now that we have defined our entire model in mathematical terms, let's start coding.
+
