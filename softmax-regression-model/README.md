@@ -33,3 +33,15 @@ Our softmax regression model can be pictured as looking something like the follo
 <div align="center">
 <br><img src="https://www.tensorflow.org/images/softmax-regression-scalargraph.png" width="581.4" height="232.2"><br>
 </div>
+
+In summary, our model can be written as:
+
+<div align="center">
+<br><img src="https://cldup.com/eWN_cXvr7r.png" width="272" height="30.5"><br><br>
+</div>
+
+Vizualizing the above equation in terms of vectors, we get:
+
+<div align="center">
+<br><img src="https://www.tensorflow.org/images/softmax-regression-vectorequation.png" width="262.4" height="64"><br>
+</div>
