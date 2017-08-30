@@ -93,3 +93,66 @@ The code above is just following the equation of our model that we defined earli
 <div align="center">
 <br><img src="https://cldup.com/2A5LB8bwxV.png" width="272" height="57.6"><br><br>
 </div>
+
+Where y is our predicted probability distribution, and y′ is the true distribution (the one-hot vector with the digit labels). In some rough sense, the cross-entropy is measuring how inefficient our predictions are for describing the truth. We use cross-entropy to calculate loss because, once we get our inputs, we matrix multiply it with the weights and add the biases to them and obtain logits. We then feed the logits, which are scores into the softmax function to obtain probabilities. To calculate loss we need to compare these  probabilities with the one-hot encoded vector lables and to do that we use cross-entropy to convert those probabilities into one-hot encoded vectors. To implement cross-entropy we need to first add a new placeholder to input the correct answers:
+
+```python
+# Actual label
+y_ = tf.placeholder(tf.float32, [None, 10])
+```
+
+Then we can implement the cross-entropy function:
+
+```python
+# Cross-entropy
+cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+```
+
+In the above code, `tf.reduce_mean` computes the mean over all the examples in the batch. and `tf.nn.softmax_cross_entropy_with_logits` computes cross-entropy where `y_` is the lable and `y` is the logit. Now let's implement the gradient descent optimization algorithm to modify the variables and reduce loss:
+
+```python
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+```
+
+In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient descent algorithm with a learning rate of `0.5`. Gradient descent is a simple procedure, where TensorFlow simply shifts each variable a little bit in the direction that reduces the cost. More explaination can be found in the [linear regression tutorial](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model). Now let's launch our model in an `InteractiveSession` and create an operation to initialize the variables we created.
+
+```python
+# Launch model in interactive session
+sess = tf.InteractiveSession()
+# Initialize variables
+tf.global_variables_initializer().run()
+```
+
+Now let's train our model, for 1000 epochs.
+
+```python
+# Train model for 1000 epochs
+for _ in range(1000):
+    # Batch of 100 random training data points
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+    sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+```
+Each step of the loop, we get a "batch" of one hundred random data points from our training set. We run `train_step` feeding in the batches data to replace the `placeholder`s. Using small batches of random data is called stochastic training - in this case, stochastic gradient descent. Now that we have trained our model, we need to find out how well our model performs. To do that we first need to find out where we predicted the correct label. Our softmax function gives us a list of probabilities that add up to 1 across 10 classes and our labels are one-hot encoded vectors and equating them together to find accuracy is not going to work. The better way is to get the index of the highest value in both vectors (the output vector of our softmax function and the labels) and see if they are equal. To do this, we use the following code:
+
+```python 
+# Check if index of highest values match between the tensors
+correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+```
+
+`tf.argmax` is an extremely useful function which gives us the index of the highest entry in a `Tensor` along some axis. Then we use `tf.equal` to see if the indicies match. This would give us a list of booleans. To determine what fraction are correct, we cast to floating point numbers and then take the mean. For example, `[True, False, True, True]` would become `[1,0,1,1]` which would become `0.75`.
+
+```python
+# Cast booleans to floats
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+```
+
+Finally we check the accuracy of our model using our test data, data that we did'nt train the model to recognise.
+
+```python
+# Check accuracy on test data
+result = sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels})
+# Print float as percentage
+print("{0:f}%".format(result * 100))
+```
+
+Running the above code should give you an accuracy close to about `92.0%`. In our next tutorial, we will be increasing the accuracy of our model close to about `99.0%`.
