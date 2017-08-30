@@ -1,10 +1,10 @@
 # TensorFlow Tutorials - Softmax Regression
 
-A vast majority of us got initiated into programming through the typical "Hello World." program where you just learn to print the phrase "Hello World." onto the terminal. Like programming, machine learning too has a "Hello World." program and it is called MNIST. The MNIST (Modified National Institute of Standards and Technology) dataset contains 70,000 images of hand written digits along with labels which tell us which image corresponds to which number. The numbers range from `0` to `9`. In this tutorial, we are going to train a model to look at images and predict what digits they are. The prediction is going to be a probability rather than a definitive prediction of class and to do that we will be using softmax regression. 
+A vast majority of us got initiated into programming through the typical "Hello World." program where you just learn to print the phrase "Hello World." onto the terminal. Like programming, machine learning too has a "Hello World." program and it is called MNIST. The MNIST (Modified National Institute of Standards and Technology) data set contains 70,000 images of hand written digits along with labels which tell us which image corresponds to which number. The numbers range from `0` to `9`. In this tutorial, we are going to train a model to look at images and predict what digits they are. The prediction is going to be a probability rather than a definitive prediction of class and to do that we will be using softmax regression. 
 
-The MNIST dataset is hosted on [Yann LeCun's website](http://yann.lecun.com/exdb/mnist/). The dataset contains 70,000 images as mentioned earlier and it's split into 55,000 data points of training data, 10,000 points of test data and 5,000 points of validation data. Every MNIST data point has two parts to it, an image of the handwitten digit and a corresponding label. In our model, the images are going to the "`x`" and the labels, "`y`". Both the training and the testing data set contains images and their corresponding labels. Each image is 28 pixel by 28 pixel and we can interpret the images as a big array of numbers. We can flatten this array into a vector of 784 numbers (28 x 28). You should note that flattening the array will result in the loss of infromation about the 2D struture of the images. Each number in the vector is a pixel intensity value between `0` and `1` (something like `0.4`, `0.9` and `0.7`). As mentioned earlier, each image in MNIST has a corresponding label between `0` and `9` and we would want our labels to be `one-hot` vectors. A one-hot vector is a vector which is `0` in most dimensions, and `1` in a single dimension. So if the label corresponding to an image is `3`, the one-hot vector is going to be `[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]` and if the label is `0` the one-hot vector is `[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]`. Basically,the value of the label corresponds to the index of `1` in the vector.
+The MNIST data set is hosted on [Yann LeCun's website](http://yann.lecun.com/exdb/mnist/). The dataset contains 70,000 images as mentioned earlier and it's split into 55,000 data points of training data, 10,000 points of test data and 5,000 points of validation data. Every MNIST data point has two parts to it, an image of the handwritten digit and a corresponding label. In our model, the images are going to the "`x`" and the labels, "`y`". Both the training and the testing data set contains images and their corresponding labels. Each image is 28 pixel by 28 pixels and we can interpret the images as a big array of numbers. We can flatten this array into a vector of 784 numbers (28 x 28). You should note that flattening the array will result in the loss of information about the 2D structure of the images. Each number in the vector is a pixel intensity value between `0` and `1` (something like `0.4`, `0.9` and `0.7`). As mentioned earlier, each image in MNIST has a corresponding label between `0` and `9` and we would want our labels to be `one-hot` vectors. A one-hot vector is a vector which is `0` in most dimensions, and `1` in a single dimension. So if the label corresponding to an image is `3`, the one-hot vector is going to be `[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]` and if the label is `0` the one-hot vector is `[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]`. Basically, the value of the label corresponds to the index of `1` in the vector.
 
-As mentioned earlier, we want our model to give us probablities instead of definitive predictions so we use softmax regression. Softmax gives us a list of probability values between `0` and `1` that adds up to `1`. Our softmax regression model has two steps: first we add up the evidence of our input being in certain classes, and then we convert that evidence into probabilities. To tally up the evidence that a given image is in a particular class, we do a weighted sum of the pixel intensities. We also add some extra evidence called a bias to the weighted sum of pixel intensities. Biases basically make certain evidences independent of the input, so even if the weighted sum is 0, you still have some evidence that the image belongs/does not belong to a certain class. The result is that the evidence for a class *i* given an input *x* is:
+As mentioned earlier, we want our model to give us probabilities instead of definitive predictions so we use softmax regression. Softmax gives us a list of probability values between `0` and `1` that adds up to `1`. Our softmax regression model has two steps: first, we add up the evidence of our input being in certain classes, and then we convert that evidence into probabilities. To tally up the evidence that a given image is in a particular class, we do a weighted sum of the pixel intensities. We also add some extra evidence called a bias to the weighted sum of pixel intensities. Biases basically make certain evidence independent of the input, so even if the weighted sum is 0, you still have some evidence that the image belongs/does not belong to a certain class. The result is that the evidence for a class *i* given an input *x* is:
 
 <div align="center">
 <br><img src="https://cldup.com/ttvcgjROql.png" width="290" height="56.5"><br><br>
@@ -40,7 +40,7 @@ In summary, our model can be written as:
 <br><img src="https://cldup.com/eWN_cXvr7r.png" width="272" height="30.5"><br><br>
 </div>
 
-Vizualizing the above equation in terms of vectors, we get:
+Visualizing the above equation in terms of vectors, we get:
 
 <div align="center">
 <br><img src="https://www.tensorflow.org/images/softmax-regression-vectorequation.png" width="524.8" height="128"><br><br>
@@ -56,7 +56,7 @@ First we need to import TensorFlow.
 import tensorflow as tf
 ```
 
-Now we need to obtain the MNIST dataset. Thankfully, TensorFlow has an inbulit function which allows us to get the MNIST dataset, extract it and use it, they have even split the dataset for us so we don't have to do it ourselves.
+Now we need to obtain the MNIST dataset. Thankfully, TensorFlow has an inbuilt function which allows us to get the MNIST data set, extract it and use it, they have even split the dataset for us so we don't have to do it ourselves.
 
 ```python
 from tensorflow.examples.tutorials.mnist import input_data
@@ -81,20 +81,20 @@ W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 ```
 
-Our weights, `w` and biases, `b` will be `Tensors` full of `0`s with a shape of `[784, 10]` and `[10]` respectively. Notice that `W` has a shape of `[784, 10]` because we want to matrix multiply the 784-dimensional image vectors with it to produce 10-dimensional vectors of evidence for the different classes of labels. `b` has a shape of `[10]` so we can add it to the result of the matrix multiplication. Now let us define our model.
+Our weights, `W` and biases, `b` will be `Tensors` full of `0`s with a shape of `[784, 10]` and `[10]` respectively. Notice that `W` has a shape of `[784, 10]` because we want to matrix multiply the 784-dimensional image vectors with it to produce 10-dimensional vectors of evidence for the different classes of labels. `b` has a shape of `[10]` so we can add it to the result of the matrix multiplication. Now let us define our model.
 
 ```python
 # Model
 y = tf.nn.softmax(tf.add(tf.matmul(x, W), b))
 ```
 
-The code above is just following the equation of our model that we defined earlier. I prefer to use `tf.add` to add two `Tensors` together, adding them using the regular `+` would also work. Like our linear regression model we also need to define a loss/cost function and for this model we will be using a very common loss function called cross-entropy. Cross-entropy is defined as:
+The code above is just following the equation of our model that we defined earlier. I prefer to use `tf.add` to add two `Tensors` together, adding them using the regular `+` would also work. Like our linear regression model we also need to define a loss/cost function and for this model, we will be using a very common loss function called cross-entropy. Cross-entropy is defined as:
 
 <div align="center">
 <br><img src="https://cldup.com/2A5LB8bwxV.png" width="272" height="57.6"><br><br>
 </div>
 
-Where y is our predicted probability distribution, and y′ is the true distribution (the one-hot vector with the digit labels). In some rough sense, the cross-entropy is measuring how inefficient our predictions are for describing the truth. We use cross-entropy to calculate loss because, once we get our inputs, we matrix multiply it with the weights and add the biases to them and obtain logits. We then feed the logits, which are scores into the softmax function to obtain probabilities. To calculate loss we need to compare these  probabilities with the one-hot encoded vector lables and to do that we use cross-entropy to convert those probabilities into one-hot encoded vectors. To implement cross-entropy we need to first add a new placeholder to input the correct answers:
+Where y is our predicted probability distribution, and y′ is the true distribution (the one-hot vector with the digit labels). In some rough sense, the cross-entropy is measuring how inefficient our predictions are for describing the truth. We use cross-entropy to calculate loss because, once we get our inputs, we matrix multiply it with the weights and add the biases to them and obtain logits. We then feed the logits, which are scores into the softmax function to obtain probabilities. To calculate loss we need to compare these probabilities with the one-hot encoded vector labels and to do that we use cross-entropy to convert those probabilities into one-hot encoded vectors. To implement cross-entropy we need to first add a new placeholder to input the correct answers:
 
 ```python
 # Actual label
@@ -108,13 +108,13 @@ Then we can implement the cross-entropy function:
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 ```
 
-In the above code, `tf.reduce_mean` computes the mean over all the examples in the batch. and `tf.nn.softmax_cross_entropy_with_logits` computes cross-entropy where `y_` is the lable and `y` is the logit. Now let's implement the gradient descent optimization algorithm to modify the variables and reduce loss:
+In the above code, `tf.reduce_mean` computes the mean over all the examples in the batch. `tf.nn.softmax_cross_entropy_with_logits` computes cross-entropy where `y_` is the label and `y` is the logit. Now let's implement the gradient descent optimization algorithm to modify the variables and reduce loss:
 
 ```python
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 ```
 
-In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient descent algorithm with a learning rate of `0.5`. Gradient descent is a simple procedure, where TensorFlow simply shifts each variable a little bit in the direction that reduces the cost. More explaination can be found in the [linear regression tutorial](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model). Now let's launch our model in an `InteractiveSession` and create an operation to initialize the variables we created.
+In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient descent algorithm with a learning rate of `0.5`. Gradient descent is a simple procedure, where TensorFlow simply shifts each variable a little bit in the direction that reduces the cost. More explanation can be found in the [linear regression tutorial](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model). Now let's launch our model in an `InteractiveSession` and create an operation to initialize the variables we created.
 
 ```python
 # Launch model in interactive session
@@ -139,14 +139,14 @@ Each step of the loop, we get a "batch" of one hundred random data points from o
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 ```
 
-`tf.argmax` is an extremely useful function which gives us the index of the highest entry in a `Tensor` along some axis. Then we use `tf.equal` to see if the indicies match. This would give us a list of booleans. To determine what fraction are correct, we cast to floating point numbers and then take the mean. For example, `[True, False, True, True]` would become `[1,0,1,1]` which would become `0.75`.
+`tf.argmax` is an extremely useful function which gives us the index of the highest entry in a `Tensor` along some axis. Then we use `tf.equal` to see if the indices match. This would give us a list of booleans. To determine what fraction are correct, we cast to floating point numbers and then take the mean. For example, `[True, False, True, True]` would become `[1,0,1,1]` which would become `0.75`.
 
 ```python
 # Cast booleans to floats
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 ```
 
-Finally we check the accuracy of our model using our test data, data that we did'nt train the model to recognise.
+Finally, we check the accuracy of our model using our test data, data that we didn't train the model to recognise.
 
 ```python
 # Check accuracy on test data
