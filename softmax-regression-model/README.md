@@ -156,3 +156,7 @@ print("{0:f}%".format(result * 100))
 ```
 
 Running the above code should give you an accuracy close to about `92.0%`. In our next tutorial, we will be increasing the accuracy of our model close to about `99.0%`.
+
+Using TensorBoard we get the following graph of our model.
+
+![graph](https://cldup.com/xLR0_THUyx.png)
