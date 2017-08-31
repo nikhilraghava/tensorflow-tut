@@ -114,13 +114,13 @@ In the above code, `tf.reduce_mean` computes the mean over all the examples in t
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 ```
 
-In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient descent algorithm with a learning rate of `0.5`. Gradient descent is a simple procedure, where TensorFlow simply shifts each variable a little bit in the direction that reduces the cost. More explanation can be found in the [linear regression tutorial](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model). Now let's launch our model in an `InteractiveSession` and create an operation to initialize the variables we created.
+In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient descent algorithm with a learning rate of `0.5`. Gradient descent is a simple procedure, where TensorFlow simply shifts each variable a little bit in the direction that reduces the cost. More explanation can be found in the [linear regression tutorial](https://github.com/nikhilraghava/tensorflow-tut/tree/master/linear-regression-model). Now let's launch our model in a `Session` and create an operation to initialize the variables we created.
 
 ```python
 # Launch model in interactive session
 sess = tf.InteractiveSession()
 # Initialize variables
-tf.global_variables_initializer().run()
+sess.run(tf.global_variables_initializer())
 ```
 
 Now let's train our model, for 1000 epochs.

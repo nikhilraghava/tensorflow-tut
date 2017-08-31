@@ -23,7 +23,7 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 # Launch model in interactive session
 sess = tf.InteractiveSession()
 # Initialize variables
-tf.global_variables_initializer().run()
+sess.run(tf.global_variables_initializer())
 # Train model for 1000 epochs
 for _ in range(1000):
     # Batch of 100 random training data points
