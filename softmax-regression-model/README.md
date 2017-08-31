@@ -118,7 +118,7 @@ In this case, we ask TensorFlow to minimize `cross_entropy` using the gradient d
 
 ```python
 # Launch model in interactive session
-sess = tf.InteractiveSession()
+sess = tf.Session()
 # Initialize variables
 sess.run(tf.global_variables_initializer())
 ```
