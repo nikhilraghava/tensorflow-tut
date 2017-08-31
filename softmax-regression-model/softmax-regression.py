@@ -20,8 +20,8 @@ cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_
 # Gradient descent optimizer
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
-# Launch model in interactive session
-sess = tf.InteractiveSession()
+# Launch model session
+sess = tf.Session()
 # Initialize variables
 sess.run(tf.global_variables_initializer())
 # Train model for 1000 epochs
